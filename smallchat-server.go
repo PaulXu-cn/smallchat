@@ -90,6 +90,7 @@ func handleClient(c *Client) {
 
 func main() {
 	initChat()
+	fmt.Print("Server started on port " + ServerPort + "\n")
 
 	for {
 		conn, err := Chat.serverConn.Accept()
@@ -98,6 +99,8 @@ func main() {
 			continue
 		}
 		c := createClient(conn)
+		fmt.Fprintln(c.conn, "Welcome to Simple Chat! Use /nick <nick> to set your nick.\n")
+		fmt.Printf("Connected client  %s\n", c.conn.LocalAddr().String())
 		go handleClient(c)
 	}
 }
